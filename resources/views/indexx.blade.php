@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('content')
 
@@ -28,7 +28,7 @@
     </thead>
 
     <tbody>
-        @foreach($voitures as $voiture)
+        @foreach($article as $article)
         <tr>
             <td>{{$article->id}}</td>
             <td>{{$article->nom}}</td>
@@ -36,7 +36,7 @@
             <td>{{$article->prix}}</td>
             <td><a href="{{ route('article.edit', $article->id)}}" class="btn btn-primary">Modifier</a></td>
             <td>
-                <form action="{{ route('article.destroy', $<td>{{$article->nom}}</td>->id)}}" method="post">
+                <form action="{{ route('article.destroy',$article->id)}}" method="post">
                   @csrf
                   @method('DELETE')
                   <button class="btn btn-danger" type="submit">Supprimer</button>

@@ -15,11 +15,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/test', function () {
     return view('index');
 });
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 */
 Route::get('/', [App\Http\Controllers\IndexController::class, 'ShowIndex'])->name('index');
 
 Auth::routes();
-Route::resource('article', 'ArticleController');
-Route::get('/article', [App\Http\Controllers\ArticleController::class, 'index'])->name('article');
-Route::get('/article/create', [App\Http\Controllers\ArticleController::class, 'create'])->name('creat');
+Route::resource('article', 'App\Http\Controllers\ArticleController');

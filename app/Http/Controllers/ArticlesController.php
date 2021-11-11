@@ -45,7 +45,7 @@ class ArticleController extends Controller
         
         $article = article::create($validatedData);
         
-        return redirect('/cars')->with('success', 'Article créer avec succèss');
+        return redirect('/article')->with('success', 'Article créer avec succèss');
     }
 
     /**
@@ -67,7 +67,9 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $car = article::findOrFail($id);
+
+        return view('edit', compact('article'));
     }
 
     /**
