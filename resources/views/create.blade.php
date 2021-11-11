@@ -27,7 +27,7 @@
       <form method="post" action="{{ route('article.store') }}">
 .         @csrf
           <div class="form-group">
-              <label for="marque">Nom de l'article:</label>
+              <label for="nom">Nom de l'article:</label>
               <input type="text" class="form-control" name="nom"/>
           </div>
           <div class="form-group">
@@ -37,6 +37,10 @@
           <div class="form-group">
               <label for="prix">Prix :</label>
               <input type="text" class="form-control" name="prix"/>
+          </div>
+          <div class="form-group">
+              <label for="lieu">lieu :</label>
+              <input type="text" class="form-control" name="lieu"/>
           </div>
           <button type="submit" class="btn btn-primary">Ajouter</button>
       </form>

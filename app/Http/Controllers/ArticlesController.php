@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use \Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Models\article;
 
@@ -29,6 +30,7 @@ class ArticleController extends Controller
     {
         return view('create');
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -38,13 +40,14 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-        'nom' => 'required|max:255',
+        'nom' => 'required|max:55',
         'description' => 'required|max:255',
         'prix' => 'required',
+        'lieu' => 'required|max:255',
         ]);
         
         $article = article::create($validatedData);
-        
+
         return redirect('/article')->with('success', 'Article créer avec succèss');
     }
 
@@ -67,7 +70,7 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        $car = article::findOrFail($id);
+        $article = article::findOrFail($id);
 
         return view('edit', compact('article'));
     }

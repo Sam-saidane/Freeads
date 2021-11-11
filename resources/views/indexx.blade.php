@@ -21,7 +21,8 @@
     <thead>
         <tr>
           <td>ID</td>
-          <td>Marque</td>
+          <td>nom</td>
+          <td>description</td>
           <td>Prix</td>
           <td colspan="2">Action</td>
         </tr>
@@ -34,6 +35,7 @@
             <td>{{$article->nom}}</td>
             <td>{{$article->description}}</td>
             <td>{{$article->prix}}</td>
+            <td>{{$article->lieu}}</td>
             <td><a href="{{ route('article.edit', $article->id)}}" class="btn btn-primary">Modifier</a></td>
             <td>
                 <form action="{{ route('article.destroy',$article->id)}}" method="post">
