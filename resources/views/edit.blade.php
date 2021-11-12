@@ -25,7 +25,7 @@
       </div><br />
     @endif
 
-      <form method="post" action="{{ route('article.update', $article->id ) }}">
+      <form method="post" enctype= 'multipart/form-data' action="{{ route('article.update', $article->id ) }}">
           <div class="form-group">
               @csrf
               @method('PATCH')
@@ -39,6 +39,16 @@
           <div class="form-group">
               <label for="cases">Prix :</label>
               <input type="text" class="form-control" name="prix" value="{{ $article->prix }}"/>
+          </div>
+          <div class="form-group">
+              <label for="cases">lieu :</label>
+              <input type="text" class="form-control" name="lieu" value="{{ $article->lieu }}"/>
+          </div>
+          <div class="form-group">
+            <input id="file-upload" type="file" name="image"  accept="image/*" onchange="readURL(this);">
+            <img src="{{ $article->image }}" />
+            <label for="file-upload" id="file-drag">
+            <img id="file-image" src="{{ $article->image }}" alt="Preview" class="hidden">
           </div>
           <button type="submit" class="btn btn-primary">Modifier</button>
       </form>

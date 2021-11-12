@@ -18,6 +18,13 @@ Route::get('/test', function () {
 
 */
 Route::get('/', [App\Http\Controllers\IndexController::class, 'ShowIndex'])->name('index');
-
+Route::get('/home', [App\Http\Controllers\ArticleController::class, 'index'])->name('home');
 Auth::routes();
 Route::resource('article', 'App\Http\Controllers\ArticleController');
+Route::get('storage/{filename}', function($filename){
+    $path = storage_path('app/uploads/' . $filename);
+    $file = File::get($path);
+
+    $response = Response::make($file,200);
+    return $response;
+});

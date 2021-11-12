@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use \Illuminate\Http\Response;
-use Illuminate\Http\Request;
+use \Illuminate\Http\Request;
+use \Illuminate\Support\Facades\Storage;
 use App\Models\article;
+
 
 class ArticleController extends Controller
 {
@@ -42,11 +44,21 @@ class ArticleController extends Controller
         $validatedData = $request->validate([
         'nom' => 'required|max:55',
         'description' => 'required|max:255',
-        'prix' => 'required',
+        'prix' => 'required|int',
         'lieu' => 'required|max:255',
         ]);
+        $all = $request->all();
+        $name = Storage::put('uploads/',$request->file('image'));
+        $path = 'storage'.substr($name,strrpos($name,'/'));
+        //var_dump($request->file('image'));
+
+        $article = article::create(['nom' =>$validatedData['nom'],
+        'description' => $validatedData['description'],
+        'prix' => $validatedData['prix'],
+        'lieu' => $validatedData['lieu'],
+        'image' => $path
         
-        $article = article::create($validatedData);
+        ]);
 
         return redirect('/article')->with('success', 'Article créer avec succèss');
     }
@@ -70,6 +82,7 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
+        
         $article = article::findOrFail($id);
 
         return view('edit', compact('article'));
@@ -84,7 +97,22 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'nom' => 'required|max:55',
+            'description' => 'required|max:255',
+            'prix' => 'required',
+            'lieu' => 'required|max:255',
+        ]);
+        $name = Storage::put('uploads/',$request->file('image'));
+        $path = 'storage'.substr($name,strrpos($name,'/'));
+        
+        $article = article::whereId($id)->update(['nom' =>$validatedData['nom'],
+        'description' => $validatedData['description'],
+        'prix' => $validatedData['prix'],
+        'lieu' => $validatedData['lieu'] ,
+        'image'=> $path
+        ]);
+        return redirect('/article')->with('success', 'Article mis a jour avec succèss');
     }
 
     /**
@@ -95,6 +123,10 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $article = article::findOrFail($id);
+        $article->delete();
+
+        return redirect('/article')->with('success', 'suprimer avec succèss');
     }
+
 }

@@ -21,9 +21,11 @@
     <thead>
         <tr>
           <td>ID</td>
-          <td>nom</td>
-          <td>description</td>
+          <td>Image</td>
+          <td>Nom</td>
+          <td>Description</td>
           <td>Prix</td>
+          <td>lieu</td>
           <td colspan="2">Action</td>
         </tr>
     </thead>
@@ -32,12 +34,12 @@
         @foreach($article as $article)
         <tr>
             <td>{{$article->id}}</td>
+            <td><img src = '{{$article->image}}' /></td>
             <td>{{$article->nom}}</td>
             <td>{{$article->description}}</td>
-            <td>{{$article->prix}}</td>
+            <td>{{$article->prix}}€</td>
             <td>{{$article->lieu}}</td>
-            <td><a href="{{ route('article.edit', $article->id)}}" class="btn btn-primary">Modifier</a></td>
-            <td>
+            <td><a href="{{ route('article.edit', $article->id)}}" class="btn btn-primary">Modifier</a>
                 <form action="{{ route('article.destroy',$article->id)}}" method="post">
                   @csrf
                   @method('DELETE')
